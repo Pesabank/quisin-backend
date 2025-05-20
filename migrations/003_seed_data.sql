@@ -71,19 +71,20 @@ BEGIN
   IF NOT EXISTS (SELECT 1 FROM settings WHERE setting_key = 'appearance') THEN
     INSERT INTO settings (id, setting_key, setting_value, description)
     VALUES
-    (uuid_generate_v4(),
-  'appearance',
-  '{
-    "logo": "https://via.placeholder.com/150",
-    "appName": "Quisin",
-    "appDescription": "Restaurant Management System",
-    "primaryColor": "#FF6B00",
-    "secondaryColor": "#333333",
-    "fontFamily": "Roboto",
-    "darkMode": false
-  }'::jsonb,
-  'Default appearance settings for the system'
-    );
+    (
+      uuid_generate_v4(),
+      'appearance',
+      '{
+        "logo": "https://via.placeholder.com/150",
+        "appName": "Quisin",
+        "appDescription": "Restaurant Management System",
+        "primaryColor": "#FF6B00",
+        "secondaryColor": "#333333",
+        "fontFamily": "Roboto",
+        "darkMode": false
+      }'::jsonb,
+      'Default appearance settings for the system'
+    )
     ON CONFLICT (setting_key) DO NOTHING;
   END IF;
 END $$;
@@ -93,18 +94,19 @@ BEGIN
   IF NOT EXISTS (SELECT 1 FROM settings WHERE setting_key = 'pdf_settings') THEN
     INSERT INTO settings (id, setting_key, setting_value, description)
     VALUES
-    (uuid_generate_v4(),
-    'pdf_settings',
-    '{
-      "headerLogo": "https://via.placeholder.com/150",
-      "headerTitle": "Quisin Restaurant Management",
-      "footerText": " 2025 Quisin Restaurant Management System",
-      "primaryColor": "#FF6B00",
-      "paperSize": "A4",
-      "orientation": "portrait"
-    }'::jsonb,
-    'PDF generation settings'
-    );
+    (
+      uuid_generate_v4(),
+      'pdf_settings',
+      '{
+        "headerLogo": "https://via.placeholder.com/150",
+        "headerTitle": "Quisin Restaurant Management",
+        "footerText": "2025 Quisin Restaurant Management System",
+        "primaryColor": "#FF6B00",
+        "paperSize": "A4",
+        "orientation": "portrait"
+      }'::jsonb,
+      'PDF generation settings'
+    )
     ON CONFLICT (setting_key) DO NOTHING;
   END IF;
 END $$;
@@ -127,18 +129,19 @@ BEGIN
 END $$;
 
 -- Insert initial system log entry
--- DO $$
--- BEGIN
---   IF NOT EXISTS (SELECT 1 FROM system_logs WHERE action = 'INITIALIZATION') THEN
---     INSERT INTO system_logs (id, log_type, action, user_email, user_role, details, status)
---     VALUES
---     (uuid_generate_v4(),
---     'SYSTEM',
---     'INITIALIZATION',
---     'system@quisin.com',
---     'system',
---     'Initial system setup completed',
---     'SUCCESS'
---     );
---   END IF;
--- END $$;
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM system_logs WHERE action = 'INITIALIZATION') THEN
+    INSERT INTO system_logs (id, log_type, action, user_email, user_role, details, status)
+    VALUES
+    (
+      uuid_generate_v4(),
+      'SYSTEM',
+      'INITIALIZATION',
+      'system@quisin.com',
+      'system',
+      '{"message": "Initial system setup completed"}'::jsonb, -- Valid JSON
+      'SUCCESS'
+    );
+  END IF;
+END $$;
