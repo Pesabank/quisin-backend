@@ -127,18 +127,18 @@ BEGIN
 END $$;
 
 -- Insert initial system log entry
-DO $$
-BEGIN
-  IF NOT EXISTS (SELECT 1 FROM system_logs WHERE action = 'INITIALIZATION') THEN
-    INSERT INTO system_logs (id, log_type, action, user_email, user_role, details, status)
-    VALUES
-    (uuid_generate_v4(),
-    'SYSTEM',
-    'INITIALIZATION',
-    'system@quisin.com',
-    'system',
-    'Initial system setup completed',
-    'SUCCESS'
-    );
-  END IF;
-END $$;
+-- DO $$
+-- BEGIN
+--   IF NOT EXISTS (SELECT 1 FROM system_logs WHERE action = 'INITIALIZATION') THEN
+--     INSERT INTO system_logs (id, log_type, action, user_email, user_role, details, status)
+--     VALUES
+--     (uuid_generate_v4(),
+--     'SYSTEM',
+--     'INITIALIZATION',
+--     'system@quisin.com',
+--     'system',
+--     'Initial system setup completed',
+--     'SUCCESS'
+--     );
+--   END IF;
+-- END $$;
