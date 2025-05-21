@@ -16,7 +16,11 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: /^http:\/\/localhost:\d+$/,
+  origin: [
+    'https://www.quisin.joinbluecollar.com', // Allow this origin
+    'https://quisinserver.joinbluecollar.com', // Allow this origin if needed
+    /^http:\/\/localhost:\d+$/ // Allow localhost for development
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
